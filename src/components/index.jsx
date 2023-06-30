@@ -5,13 +5,14 @@ import {INDEX_ROUTE} from "../utils/consts";
 import Header from "./Header";
 import Main from "./Main";
 import Load from "./Load";
+import MainHeader from "./MainHeader";
 
 const Index = () => {
     const location = useLocation();
     const history = useHistory();
 
     return (
-        <div id="__next" data-reactroot={""}>
+        <div>
             <Navbar/>
 
             {location.pathname === INDEX_ROUTE ?
@@ -20,9 +21,10 @@ const Index = () => {
                 <div/>
             }
 
+            <MainHeader/>
+
             <Main/>
 
-            <Load/>
         </div>
     );
 };

@@ -4,7 +4,7 @@ import Load from "./Load";
 
 const Main = () => {
     return (
-        <main className="Wrapper_maxWidth__WMxko Wrapper_horizontalPadding__OiuLw spacing_noMargin__Q_PsJ">
+        <main className="Main_container container">
             <Grid/>
             <Load/>
         </main>

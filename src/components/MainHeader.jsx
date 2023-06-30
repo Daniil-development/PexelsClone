@@ -8,12 +8,13 @@ const MainHeader = () => {
     const location = useLocation();
 
     return (
-        location.pathname === INDEX_ROUTE ?
-            <HomepageHeader/>
-            :
-            <SearchHeader/>
-
-
+        <div className="container" style={{marginTop: "30px"}}>
+            {location.pathname === INDEX_ROUTE ?
+                <HomepageHeader/>
+                :
+                <SearchHeader/>
+            }
+        </div>
 
     );
 };
