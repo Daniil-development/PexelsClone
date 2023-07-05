@@ -3,6 +3,7 @@ import Filters from "../components/Filters";
 
 const SearchHeader = () => {
     return (
+
         <div className="SearchHeader_container">
             <h2> Images & Pictures</h2>
             <div className="pictures_number_container">

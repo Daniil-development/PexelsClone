@@ -1,7 +1,9 @@
 import React from 'react';
 import {TRENDING_SUGGESTIONS} from "../utils/consts";
+import axios from "axios";
 
 const TrendingSuggestions = () => {
+
     let suggestions = [];
     let array = TRENDING_SUGGESTIONS;
     let n = 7;
@@ -18,11 +20,11 @@ const TrendingSuggestions = () => {
     return (
         <ul className="TrendingSuggestions">
             {suggestions.map(suggestion =>
-                <li>
+                <li key={"Suggestion " + suggestion} className="TrendingSuggestions_suggestion">
                     {suggestion === suggestions[0] ?
                         <></>
                         :
-                        <span>,</span>
+                        <span>,&nbsp;</span>
                     }
                     <a href={"/search/" + suggestion}>{suggestion}</a>
 

@@ -5,7 +5,7 @@ const Column = ({items, column_index}) => {
     return (
         <div id={"Column_" + column_index} className="Column">
             {items.map(item =>
-            <Item item={item}/>
+            <Item key={item.id} item={item}/>
             )}
 
 

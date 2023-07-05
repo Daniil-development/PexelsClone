@@ -18,7 +18,7 @@ const Index = () => {
             {location.pathname === INDEX_ROUTE ?
                 <Header/>
                 :
-                <div/>
+                <></>
             }
 
             <MainHeader/>

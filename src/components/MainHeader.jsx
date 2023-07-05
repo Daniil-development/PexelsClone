@@ -8,10 +8,11 @@ const MainHeader = () => {
     const location = useLocation();
 
     return (
-        <div className="container" style={{marginTop: "30px"}}>
+        <div className="container" style={{marginTop: location.pathname === INDEX_ROUTE ? "30px" : "110px"}}>
             {location.pathname === INDEX_ROUTE ?
                 <HomepageHeader/>
                 :
+
                 <SearchHeader/>
             }
         </div>
