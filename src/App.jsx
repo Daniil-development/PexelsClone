@@ -1,7 +1,7 @@
 
 import {observer} from "mobx-react-lite";
 import Index from "./components";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, useLocation} from "react-router-dom";
 
 const App = observer (() => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from "./Navbar";
-import {useHistory, useLocation} from "react-router-dom";
-import {INDEX_ROUTE} from "../utils/consts";
+import {Route, Switch, useHistory, useLocation} from "react-router-dom";
+import {INDEX_ROUTE, SEARCH_ROUTE} from "../utils/consts";
 import Header from "./Header";
 import Main from "./Main";
 import Load from "./Load";
