@@ -1,5 +1,5 @@
 import React from 'react';
-import {TRENDING_SUGGESTIONS} from "../utils/consts";
+import {SEARCH_ROUTE, TRENDING_SUGGESTIONS} from "../utils/consts";
 import axios from "axios";
 
 const TrendingSuggestions = () => {
@@ -26,7 +26,7 @@ const TrendingSuggestions = () => {
                         :
                         <span>,&nbsp;</span>
                     }
-                    <a href={"/search/" + suggestion}>{suggestion}</a>
+                    <a href={SEARCH_ROUTE + "/" + suggestion + "/?"}>{suggestion}</a>
 
                 </li>
             )}

@@ -9,10 +9,8 @@ const Item = ({item}) => {
     return (
         <div id={"Item_" + item.id} className="Item_container" onMouseOver={(event) => {
             setHoverID(item.id);
-            console.log(hoverID);
         }} onMouseOut={(event) => {
             setHoverID(null);
-            console.log(hoverID);
         }}>
             <article style={{
                 paddingTop: `${aspectRatio}%`,
