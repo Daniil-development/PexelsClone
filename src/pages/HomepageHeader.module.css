@@ -1,0 +1,7 @@
+.container > h2 {
+    line-height: 1;
+    font-weight: 600;
+    font-size: 23px;
+    letter-spacing: -.015em;
+    color: #2c343e;
+}

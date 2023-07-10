@@ -1,9 +1,10 @@
 import React from 'react';
+import styles from "./Load.module.css"
 
 const Load = () => {
     return (
-        <div className="Loading_container__7S4ir">
-            <div className="Loading_spinner__7_Kp_">
+        <div className={styles.container}>
+            <div className={styles.spinner}>
                 <div></div>
                 <div></div>
                 <div></div>

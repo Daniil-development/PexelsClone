@@ -1,0 +1,5 @@
+.container {
+    composes: container from "./index.module.css";
+    margin-top: 30px;
+    margin-bottom: 30px;
+}

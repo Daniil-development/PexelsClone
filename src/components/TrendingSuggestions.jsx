@@ -1,6 +1,7 @@
 import React from 'react';
 import {SEARCH_ROUTE, TRENDING_SUGGESTIONS} from "../utils/consts";
 import axios from "axios";
+import styles from "./TrendingSuggestions.module.css"
 
 const TrendingSuggestions = () => {
 
@@ -18,9 +19,9 @@ const TrendingSuggestions = () => {
     }
 
     return (
-        <ul className="TrendingSuggestions">
+        <ul className={styles.trendingSuggestions}>
             {suggestions.map(suggestion =>
-                <li key={"Suggestion " + suggestion} className="TrendingSuggestions_suggestion">
+                <li key={"Suggestion " + suggestion} className={styles.suggestion}>
                     {suggestion === suggestions[0] ?
                         <></>
                         :

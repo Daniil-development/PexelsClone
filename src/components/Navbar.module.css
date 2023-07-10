@@ -1,0 +1,64 @@
+.container {
+    composes: container from "./index.module.css";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 6;
+    height: 80px;
+    color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.navbarFixed {
+    position: fixed;
+    background-color: #ffffff;
+    color: black;
+    box-shadow: 0 1px 0 #f7f7f7;
+}
+
+.searchbarContainer {
+    width: 630px;
+}
+
+.logoContainer {
+    display: flex;
+    width: 180px;;
+    height: 50px;
+
+    color: inherit;
+    align-items: center;
+}
+
+
+
+.navbarFixed .logoContainer:hover {
+    color: inherit;
+    opacity: 1;
+}
+
+.logoImage {
+    height: 100%;
+    margin-right: 15px;
+    border-radius: 7px;
+    fill: #07a081;
+}
+
+.logoImage > path:nth-child(2) {
+    transform: translate(-14px, -11px);
+    fill: #fff;
+}
+
+.logoText {
+    display: inline-block;
+    font-size: 24px;
+    color: inherit;
+}
+.logoContainer:hover {
+    opacity: .7;
+}

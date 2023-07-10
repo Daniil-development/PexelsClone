@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Column from "./Column";
 import axios from "axios";
-import {Context} from "../index";
 import {FILTERS, INDEX_ROUTE, PICTURES_PER_PAGE, SEARCH_ROUTE} from "../utils/consts";
 import {useLocation} from "react-router-dom";
+import styles from "./Grid.module.css"
 
 const Grid = () => {
 
@@ -19,8 +19,6 @@ const Grid = () => {
         useEffect(() => {
             console.log("PREF " + currentPage + fetching)
                 if (fetching || prevLocation !== location.pathname + location.search) {
-
-
 
                     console.log("fetching " + currentPage);
                     let indexRequest = `https://api.pexels.com/v1/curated?page=${currentPage}&per_page=${PICTURES_PER_PAGE}`;
@@ -80,7 +78,7 @@ const Grid = () => {
             //console.log("Items - " + (items.length <= totalCount))
             if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < window.innerHeight * 4
                 && items.length <= totalCount) {
-                setFetching(false);
+                console.log(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) , "---", window.innerHeight * 4)
                 setFetching(true);
                 console.log("FETCHINGINSCROLL" + fetching)
             }
@@ -105,7 +103,7 @@ const Grid = () => {
             }
 
             try {
-                document.getElementById("pictures_number").textContent = totalCountFormatted;
+                document.getElementById("picturesNumber").textContent = totalCountFormatted;
             } catch {
 
             }
@@ -113,7 +111,7 @@ const Grid = () => {
         }
 
         return (
-            <div className="Grid_container">
+            <div className={styles.container}>
                 <Column items={items.filter(function (item, index) {
 
                     return (index + 3) % 3 === 0

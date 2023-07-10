@@ -1,11 +1,12 @@
 import React from 'react';
 import Filter from "./Filter";
 import {FILTERS} from "../utils/consts";
+import styles from "./Filters.module.css"
 
 const Filters = () => {
 
     return (
-        <div className="Filters_container">
+        <div className={styles.container}>
             {FILTERS.map(filter =>
                 <Filter key={filter.name + "_filter"} filter={filter}/>
             )}

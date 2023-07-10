@@ -2,6 +2,8 @@ import React from 'react';
 import Filters from "../components/Filters";
 import {useLocation} from "react-router-dom";
 import {SEARCH_ROUTE} from "../utils/consts";
+import styles from "./SearchHeader.module.css";
+
 
 const SearchHeader = () => {
     const path = useLocation().pathname
@@ -15,11 +17,11 @@ const SearchHeader = () => {
 
     return (
 
-        <div className="SearchHeader_container">
-            <h2>{query}&nbsp;Images</h2>
-            <a className="pictures_number_container" href={path + search}>
+        <div className={styles.container}>
+            <h2 className={styles.h2}>{query}&nbsp;Images</h2>
+            <a className={styles.picturesNumberContainer} href={path + search}>
                 <span>Photos&nbsp;</span>
-                <span id="pictures_number"></span>
+                <span id="picturesNumber" className={styles.picturesNumber}></span>
             </a>
 
             <Filters/>

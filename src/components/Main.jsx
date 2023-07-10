@@ -1,12 +1,12 @@
 import React from 'react';
 import Grid from "./Grid";
 import Load from "./Load";
-import {useLocation} from "react-router-dom";
+import styles from "./Main.module.css"
 
 const Main = () => {
 
     return (
-        <main className="Main_container container">
+        <main className={styles.container}>
             <Grid/>
             <Load/>
         </main>
