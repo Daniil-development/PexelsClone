@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import styles from "./Item.module.css"
+import styles from "./index.module.css"
 
 const Item = ({item}) => {
     const [hover, setHover] = useState(false);
@@ -8,9 +8,9 @@ const Item = ({item}) => {
     const [liked, setLiked] = useState(JSON.parse(localStorage.getItem("PhotoLikes")).includes(item.id));
 
     return (
-        <div id={"Item_" + item.id} className={styles.container} onMouseOver={(event) => {
+        <div id={"Item_" + item.id} className={styles.container} onMouseOver={() => {
             setHover(true);
-        }} onMouseOut={(event) => {
+        }} onMouseOut={() => {
             setHover(false);
         }}>
             <article className={styles.article} style={{

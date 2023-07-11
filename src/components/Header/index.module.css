@@ -1,5 +1,5 @@
 .container {
-    composes: container from "./index.module.css";
+    composes: container from "../Index/index.module.css";
     position: relative;
     padding-top: 80px;
     padding-bottom: 40px;

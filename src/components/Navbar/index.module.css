@@ -1,5 +1,5 @@
 .container {
-    composes: container from "./index.module.css";
+    composes: container from "../Index/index.module.css";
     position: absolute;
     top: 0;
     left: 0;

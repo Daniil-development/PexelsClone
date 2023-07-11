@@ -1,7 +1,9 @@
-import React from 'react';
-import styles from "./Load.module.css"
+import React, {useContext} from 'react';
+import styles from "./index.module.css"
+import {Context} from "../../index";
 
 const Load = () => {
+    const {state} = useContext(Context);
     return (
         <div className={styles.container}>
             <div className={styles.spinner}>
@@ -10,6 +12,7 @@ const Load = () => {
                 <div></div>
                 <div></div>
             </div>
+            <button className={styles.button} onClick={()=>state.setFetching(!state.fetching)}>Continue</button>
         </div>
     );
 };

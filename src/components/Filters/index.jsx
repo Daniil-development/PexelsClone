@@ -1,7 +1,7 @@
 import React from 'react';
-import Filter from "./Filter";
-import {FILTERS} from "../utils/consts";
-import styles from "./Filters.module.css"
+import Filter from "../Filter";
+import {FILTERS} from "../../utils/consts";
+import styles from "./index.module.css"
 
 const Filters = () => {
 

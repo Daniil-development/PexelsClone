@@ -1,97 +1,67 @@
-import React, {useContext, useEffect, useState} from 'react';
-import Column from "./Column";
-import axios from "axios";
-import {INDEX_ROUTE, PICTURES_PER_PAGE, SEARCH_ROUTE} from "../utils/consts";
+import React, {useCallback, useContext, useEffect} from 'react';
+import Column from "../Column";
+import {INDEX_ROUTE, PICTURES_PER_PAGE} from "../../utils/consts";
 import {useLocation} from "react-router-dom";
-import styles from "./Grid.module.css"
+import styles from "./index.module.css"
 import {observer} from "mobx-react-lite";
-import {Context} from "../index";
+import {Context} from "../../index";
+import {getData} from "../../api/API";
 
 const Grid = observer(() => {
         const {state} = useContext(Context);
-
-
         const location = useLocation();
-        const [prevLocation, setPrevLocation] = useState(location.pathname + location.search);
-        const [currentPage, setCurrentPage] = useState(1);
 
         useEffect(() => {
-                console.log("PREF " + currentPage + state.fetching)
+                console.log("PREF " + state.currentPage + state.fetching)
                 if (state.fetching) {
 
-                    console.log("fetching " + currentPage);
-                    let indexRequest = `https://api.pexels.com/v1/curated?page=${currentPage}&per_page=${PICTURES_PER_PAGE}`;
+                    console.log("fetching " + state.currentPage);
+                    let url = `/curated?page=${state.currentPage}&per_page=${PICTURES_PER_PAGE}`;
 
                     let path = location.pathname;
 
                     let search = location.search;
 
-                    let apiRequest = indexRequest;
-
                     if (path !== INDEX_ROUTE) {
                         path = path.split("/");
-                        if (path.length >= 3 && "/" + path[1] === SEARCH_ROUTE && path[2].length > 0) {
-                            apiRequest = `https://api.pexels.com/v1/search?query=${path[2]}&page=${prevLocation !== location.pathname + location.search ? 1 : currentPage}&per_page=${PICTURES_PER_PAGE}`;
-                            if (search !== "") {
-                                search = search.substring(1);
-                                apiRequest += "&" + search;
-                            }
+                        url = `/search?query=${path[2]}&page=${state.currentPage}&per_page=${PICTURES_PER_PAGE}`;
+                        if (search !== "") {
+                            search = search.substring(1);
+                            url += "&" + search;
                         }
                     }
 
-                    try {
-                    axios.get(apiRequest)
-                        .then(response => {
-                            console.log(response.data)
-                            if (prevLocation !== location.pathname + location.search) {
-                                state.setItems(response.data.photos);
-                                setCurrentPage(2);
+                    getData(url).then(data => {
+                        if (data === null) {
+                            state.setError(true);
+                        }
+                        console.log(data)
+                        state.setItems([...state.items, ...data.photos]);
+                        state.setCurrentPage(state.currentPage + 1);
 
-                            } else {
-                                state.setItems([...state.items, ...response.data.photos]);
-                                setCurrentPage(prevState => prevState + 1);
-
-                            }
-                            setPrevLocation(location.pathname + location.search);
-
-
-                            state.setTotalCount(response.data.total_results);
-
-                        }).catch((error) => {console.log(error); state.setError(true)})
+                        state.setTotalCount(data.total_results);
+                    })
                         .finally(() => {
-                            console.log("Fetched");
                             state.setFetching(false)
                         });
-                    } catch (error) {
-                        console.log(error);
-                        state.setError(true);
-                    }
+
                 }
             }, [state.fetching]
         )
 
+        const scrollHandler = useCallback((e) => {
+            if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < window.innerHeight * 4
+                && state.items.length < state.totalCount && !state.fetching) {
+                state.setFetching(true);
+            }
+        }, []);
         useEffect(() => {
             document.addEventListener('scroll', scrollHandler);
 
             return function () {
                 document.removeEventListener('scroll', scrollHandler);
             }
-
-
-        }, [])
-
-        const scrollHandler = (e) => {
-            //console.log("Screen - " + (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < window.innerHeight))
-            //console.log("Items - " + (items.length <= totalCount))
-            console.log(state.items.length, " ", state.totalCount)
-            if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < window.innerHeight * 4
-                && state.items.length < state.totalCount) {
-                console.log(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight), "---", window.innerHeight * 4)
-                state.setFetching(true);
-                console.log("FETCHINGINSCROLL" + state.fetching)
-            }
-        }
-
+        }, [scrollHandler])
 
 
         return (

@@ -1,8 +1,7 @@
 import {observer} from "mobx-react-lite";
-import Index from "./components";
-import {BrowserRouter, Redirect, Route, Switch, useLocation} from "react-router-dom";
+import Index from "./components/Index";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {INDEX_ROUTE, SEARCH_ROUTE} from "./utils/consts";
-import Header from "./components/Header";
 import React from "react";
 
 const App = observer(() => {

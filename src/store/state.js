@@ -6,6 +6,7 @@ export default class State {
         this._items = [];
         this._totalCount = 0
         this._error = false;
+        this._currentPage = 1;
         makeAutoObservable(this);
     }
     setFetching(value) {
@@ -38,5 +39,19 @@ export default class State {
 
     get error () {
         return this._error;
+    }
+
+    setCurrentPage(value) {
+        this._currentPage = value;
+    }
+
+    get currentPage () {
+        return this._currentPage;
+    }
+
+    resetGrid () {
+        this._items = [];
+        this._currentPage = 1;
+        this._fetching = true;
     }
 }

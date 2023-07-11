@@ -1,13 +1,11 @@
 import React, {useContext} from 'react';
-import Filters from "../components/Filters";
+import Filters from "../../components/Filters";
 import {useLocation} from "react-router-dom";
-import {SEARCH_ROUTE} from "../utils/consts";
-import styles from "./SearchHeader.module.css";
+import styles from "./index.module.css";
 import {observer} from "mobx-react-lite";
-import {Context} from "../index";
+import {Context} from "../../index";
 
-
-const SearchHeader = observer (() => {
+const SearchHeader = observer(() => {
     const {state} = useContext(Context);
 
     const path = useLocation().pathname
@@ -16,7 +14,9 @@ const SearchHeader = observer (() => {
     let query = path.split("/")[2];
     query = query.split(" ");
 
-    query.forEach((value, index, array) => {array[index] = value[0].toUpperCase() + value.substring(1)})
+    query.forEach((value, index, array) => {
+        array[index] = value[0].toUpperCase() + value.substring(1)
+    })
     query = query.join(" ");
 
     let totalCountFormatted = state.totalCount.toString();
@@ -39,14 +39,23 @@ const SearchHeader = observer (() => {
     return (
 
         <div className={styles.container}>
-            <h2 className={styles.h2}>{query}&nbsp;Images</h2>
-            <a className={styles.picturesNumberContainer} href={path + search}>
-                <span>Photos&nbsp;</span>
-                <span className={styles.picturesNumber}>{totalCountFormatted}</span>
-            </a>
+            {!state.fetching && !state.totalCount ?
+                <h2 className={styles.h2}>
+                    We couldn’t find anything for “<span className={styles.query}>{query}</span>“.
+                    <br/>
+                    Try to refine your search.
+                </h2>
+                :
+                <>
+                    <h2 className={styles.h2}>{query}&nbsp;Images</h2>
+                    <a className={styles.picturesNumberContainer} href={path + search}>
+                        <span>Photos&nbsp;</span>
+                        <span className={styles.picturesNumber}>{totalCountFormatted}</span>
+                    </a>
 
-            <Filters/>
-
+                    <Filters/>
+                </>
+            }
         </div>
 
     );

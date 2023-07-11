@@ -1,12 +1,11 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import Navbar from "./Navbar";
-import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
-import {INDEX_ROUTE, SEARCH_ROUTE} from "../utils/consts";
-import Header from "./Header";
-import Main from "./Main";
-import Load from "./Load";
-import MainHeader from "./MainHeader";
-import axios from "axios";
+import React, {useEffect, useState} from 'react';
+import Navbar from "../Navbar";
+import {Route} from "react-router-dom";
+import {INDEX_ROUTE} from "../../utils/consts";
+import Header from "../Header";
+import Main from "../Main";
+import MainHeader from "../MainHeader";
+import {getData} from "../../api/API";
 
 const Index = () => {
     const [photo, setPhoto] = useState({
@@ -20,11 +19,11 @@ const Index = () => {
     useEffect( () => {
         let count = 20;
 
-        let request = `https://api.pexels.com/v1/search?query=Wallpaper&per_page=${count}&orientation=landscape`;
+        let request = `/search?query=Wallpaper&per_page=${count}&orientation=landscape`;
 
-        axios.get(request)
-            .then(response => {
-                let photos = response.data.photos;
+        getData(request)
+            .then(data => {
+                let photos = data.photos;
 
                 let i = Math.floor(Math.random() * photos.length);
 

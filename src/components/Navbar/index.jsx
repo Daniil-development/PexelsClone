@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import Searchbar from "./Searchbar";
-import {INDEX_ROUTE} from "../utils/consts";
+import Searchbar from "../Searchbar";
+import {INDEX_ROUTE} from "../../utils/consts";
 import {useLocation} from "react-router-dom";
-import styles from "./Navbar.module.css"
+import styles from "./index.module.css"
 
 const Navbar = () => {
     const location = useLocation();
@@ -18,8 +18,7 @@ const Navbar = () => {
 
     }, []);
 
-    const scrollHandler = (e) => {
-
+    const scrollHandler = () => {
         if (location.pathname !== INDEX_ROUTE) {
             setIsFixed(true);
 

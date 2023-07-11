@@ -1,9 +1,9 @@
 import React from 'react';
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
-import {INDEX_ROUTE, SEARCH_ROUTE} from "../utils/consts";
-import HomepageHeader from "../pages/HomepageHeader";
-import SearchHeader from "../pages/SearchHeader";
-import styles from "./MainHeader.module.css"
+import {INDEX_ROUTE, SEARCH_ROUTE} from "../../utils/consts";
+import HomepageHeader from "../../pages/HomepageHeader";
+import SearchHeader from "../../pages/SearchHeader";
+import styles from "./index.module.css"
 
 const MainHeader = () => {
     const location = useLocation();

@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Link, NavLink, Redirect, useHistory, useLocation} from "react-router-dom";
-import {SEARCH_ROUTE} from "../utils/consts";
-import Navbar from "./Navbar";
-import styles from "./Searchbar.module.css"
+import {useLocation} from "react-router-dom";
+import {SEARCH_ROUTE} from "../../utils/consts";
+import styles from "./index.module.css"
 
 const Searchbar = ({parent}) => {
     const path = useLocation().pathname;
@@ -13,21 +11,14 @@ const Searchbar = ({parent}) => {
         query.split(" ").forEach((value, index, array) => {
             array[index] = value[0].toUpperCase()
         })
-        //setSearchQuery(query);
     }
     const [searchQuery, setSearchQuery] = useState(query || "");
-
-    const history = useHistory();
-
-
 
     return (
         <form role="search" action={SEARCH_ROUTE + "/" + searchQuery + "/"} autoComplete="off" className={styles.form}>
             <input type="search" id={parent + "SearchbarInput"} className={styles.input}
                    placeholder={"Search for free photos"} value={searchQuery}
                    onChange={(event) => setSearchQuery(event.target.value)}/>
-
-
 
             <button type="submit" className={styles.button} formAction={SEARCH_ROUTE + "/" + searchQuery + "/"}>
                 <svg xmlns="http://www.w3.org/2000/svg" height="1.4em" viewBox="0 0 512 512">

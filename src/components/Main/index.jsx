@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
-import Grid from "./Grid";
-import Load from "./Load";
-import styles from "./Main.module.css"
+import Grid from "../Grid";
+import Load from "../Load";
+import styles from "./index.module.css"
 import {observer} from "mobx-react-lite";
-import {Context} from "../index";
-import Error from "./Error";
+import {Context} from "../../index";
+import Error from "../Error";
 
 const Main = observer(() => {
     const {state} = useContext(Context);

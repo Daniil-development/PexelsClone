@@ -1,9 +1,7 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import Searchbar from "./Searchbar";
-import TrendingSuggestions from "./TrendingSuggestions";
-import {INDEX_ROUTE, PICTURES_PER_PAGE, SEARCH_ROUTE} from "../utils/consts";
-import axios from "axios";
-import styles from "./Header.module.css"
+import React from 'react';
+import Searchbar from "../Searchbar";
+import TrendingSuggestions from "../TrendingSuggestions";
+import styles from "./index.module.css"
 
 const Header = ({photo}) => {
 

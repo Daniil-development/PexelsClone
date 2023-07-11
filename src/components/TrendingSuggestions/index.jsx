@@ -1,7 +1,6 @@
 import React from 'react';
-import {SEARCH_ROUTE, TRENDING_SUGGESTIONS} from "../utils/consts";
-import axios from "axios";
-import styles from "./TrendingSuggestions.module.css"
+import {SEARCH_ROUTE, TRENDING_SUGGESTIONS} from "../../utils/consts";
+import styles from "./index.module.css"
 
 const TrendingSuggestions = () => {
 

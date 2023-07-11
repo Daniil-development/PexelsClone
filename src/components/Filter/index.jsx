@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Route, useHistory, useLocation} from "react-router-dom";
-import styles from "./Filter.module.css"
-import {Context} from "../index";
+import {useHistory, useLocation} from "react-router-dom";
+import styles from "./index.module.css"
+import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 
 const Filter = observer (({filter}) => {
@@ -91,8 +91,7 @@ const Filter = observer (({filter}) => {
                                         }
                                         console.log(request);
                                         history.push(request);
-                                        state.setItems([]);
-                                        state.setFetching(true);
+                                        state.resetGrid();
 
                                     }
                                     setSelectedValue(index);
