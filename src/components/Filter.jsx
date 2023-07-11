@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Route, useHistory, useLocation} from "react-router-dom";
 import styles from "./Filter.module.css"
+import {Context} from "../index";
+import {observer} from "mobx-react-lite";
 
-const Filter = ({filter}) => {
+const Filter = observer (({filter}) => {
+    const {state} = useContext(Context);
     const [menuOpen, setMenuOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(0)
 
@@ -88,6 +91,8 @@ const Filter = ({filter}) => {
                                         }
                                         console.log(request);
                                         history.push(request);
+                                        state.setItems([]);
+                                        state.setFetching(true);
 
                                     }
                                     setSelectedValue(index);
@@ -109,6 +114,6 @@ const Filter = ({filter}) => {
             }
         </div>
     );
-};
+});
 
 export default Filter;

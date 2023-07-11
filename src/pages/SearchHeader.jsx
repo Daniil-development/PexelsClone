@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Filters from "../components/Filters";
 import {useLocation} from "react-router-dom";
 import {SEARCH_ROUTE} from "../utils/consts";
 import styles from "./SearchHeader.module.css";
+import {observer} from "mobx-react-lite";
+import {Context} from "../index";
 
 
-const SearchHeader = () => {
+const SearchHeader = observer (() => {
+    const {state} = useContext(Context);
+
     const path = useLocation().pathname
     const search = useLocation().search;
 
@@ -15,13 +19,30 @@ const SearchHeader = () => {
     query.forEach((value, index, array) => {array[index] = value[0].toUpperCase() + value.substring(1)})
     query = query.join(" ");
 
+    let totalCountFormatted = state.totalCount.toString();
+    switch (Math.floor((totalCountFormatted.length - 1) / 3)) {
+        case 0:
+            break;
+        case 1:
+            totalCountFormatted = totalCountFormatted.substring(0, totalCountFormatted.length - 3) + "." + totalCountFormatted[totalCountFormatted.length - 3] + "K";
+            break;
+        case 2:
+            totalCountFormatted = totalCountFormatted.substring(0, totalCountFormatted.length - 6) + "." + totalCountFormatted[totalCountFormatted.length - 6] + "M";
+            break;
+        case 3:
+            totalCountFormatted = totalCountFormatted.substring(0, totalCountFormatted.length - 9) + "." + totalCountFormatted[totalCountFormatted.length - 9] + "MM";
+            break;
+        default:
+            totalCountFormatted = "Inf";
+    }
+
     return (
 
         <div className={styles.container}>
             <h2 className={styles.h2}>{query}&nbsp;Images</h2>
             <a className={styles.picturesNumberContainer} href={path + search}>
                 <span>Photos&nbsp;</span>
-                <span id="picturesNumber" className={styles.picturesNumber}></span>
+                <span className={styles.picturesNumber}>{totalCountFormatted}</span>
             </a>
 
             <Filters/>
@@ -29,6 +50,6 @@ const SearchHeader = () => {
         </div>
 
     );
-};
+});
 
 export default SearchHeader;

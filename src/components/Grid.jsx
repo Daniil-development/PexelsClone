@@ -1,24 +1,23 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Column from "./Column";
 import axios from "axios";
-import {FILTERS, INDEX_ROUTE, PICTURES_PER_PAGE, SEARCH_ROUTE} from "../utils/consts";
+import {INDEX_ROUTE, PICTURES_PER_PAGE, SEARCH_ROUTE} from "../utils/consts";
 import {useLocation} from "react-router-dom";
 import styles from "./Grid.module.css"
+import {observer} from "mobx-react-lite";
+import {Context} from "../index";
 
-const Grid = () => {
+const Grid = observer(() => {
+        const {state} = useContext(Context);
+
 
         const location = useLocation();
         const [prevLocation, setPrevLocation] = useState(location.pathname + location.search);
-        const [items, setItems] = useState([]);
         const [currentPage, setCurrentPage] = useState(1);
-        const [fetching, setFetching] = useState(true);
-        const [totalCount, setTotalCount] = useState(0);
-        //const {client} = useContext(Context);
-
 
         useEffect(() => {
-            console.log("PREF " + currentPage + fetching)
-                if (fetching || prevLocation !== location.pathname + location.search) {
+                console.log("PREF " + currentPage + state.fetching)
+                if (state.fetching) {
 
                     console.log("fetching " + currentPage);
                     let indexRequest = `https://api.pexels.com/v1/curated?page=${currentPage}&per_page=${PICTURES_PER_PAGE}`;
@@ -40,27 +39,35 @@ const Grid = () => {
                         }
                     }
 
+                    try {
                     axios.get(apiRequest)
                         .then(response => {
-                          if (prevLocation !== location.pathname + location.search) {
-                                setItems(response.data.photos);
+                            console.log(response.data)
+                            if (prevLocation !== location.pathname + location.search) {
+                                state.setItems(response.data.photos);
                                 setCurrentPage(2);
 
                             } else {
-                                setItems([...items, ...response.data.photos]);
+                                state.setItems([...state.items, ...response.data.photos]);
                                 setCurrentPage(prevState => prevState + 1);
 
                             }
                             setPrevLocation(location.pathname + location.search);
 
 
-                            setTotalCount(response.data.total_results);
-                            if (path !== INDEX_ROUTE)
-                                setTotalCountInHeader(response.data.total_results);
-                        })
-                        .finally(() => {console.log("Fetched");setFetching(false)});
+                            state.setTotalCount(response.data.total_results);
+
+                        }).catch((error) => {console.log(error); state.setError(true)})
+                        .finally(() => {
+                            console.log("Fetched");
+                            state.setFetching(false)
+                        });
+                    } catch (error) {
+                        console.log(error);
+                        state.setError(true);
+                    }
                 }
-            }, [fetching, location]
+            }, [state.fetching]
         )
 
         useEffect(() => {
@@ -76,56 +83,33 @@ const Grid = () => {
         const scrollHandler = (e) => {
             //console.log("Screen - " + (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < window.innerHeight))
             //console.log("Items - " + (items.length <= totalCount))
+            console.log(state.items.length, " ", state.totalCount)
             if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < window.innerHeight * 4
-                && items.length <= totalCount) {
-                console.log(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) , "---", window.innerHeight * 4)
-                setFetching(true);
-                console.log("FETCHINGINSCROLL" + fetching)
+                && state.items.length < state.totalCount) {
+                console.log(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight), "---", window.innerHeight * 4)
+                state.setFetching(true);
+                console.log("FETCHINGINSCROLL" + state.fetching)
             }
         }
 
-        const setTotalCountInHeader = (totalCount) => {
-            let totalCountFormatted = totalCount.toString();
-            switch (Math.floor((totalCount.toString().length - 1) / 3)) {
-                case 0:
-                    break;
-                case 1:
-                    totalCountFormatted = totalCountFormatted.substring(0, totalCountFormatted.length - 3) + "." + totalCountFormatted[totalCountFormatted.length - 3] + "K";
-                    break;
-                case 2:
-                    totalCountFormatted = totalCountFormatted.substring(0, totalCountFormatted.length - 6) + "." + totalCountFormatted[totalCountFormatted.length - 6] + "M";
-                    break;
-                case 3:
-                    totalCountFormatted = totalCountFormatted.substring(0, totalCountFormatted.length - 9) + "." + totalCountFormatted[totalCountFormatted.length - 9] + "MM";
-                    break;
-                default:
-                    totalCountFormatted = "Inf";
-            }
 
-            try {
-                document.getElementById("picturesNumber").textContent = totalCountFormatted;
-            } catch {
-
-            }
-
-        }
 
         return (
             <div className={styles.container}>
-                <Column items={items.filter(function (item, index) {
+                <Column items={state.items.filter(function (item, index) {
 
                     return (index + 3) % 3 === 0
                 })} column_index={0}/>
-                <Column items={items.filter(function (item, index) {
+                <Column items={state.items.filter(function (item, index) {
                     return (index + 2) % 3 === 0
                 })} column_index={1}/>
-                <Column items={items.filter(function (item, index) {
+                <Column items={state.items.filter(function (item, index) {
                     return (index + 1) % 3 === 0
                 })} column_index={2}/>
             </div>
         );
     }
-;
+);
 
 export default Grid;
 

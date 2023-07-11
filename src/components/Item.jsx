@@ -2,16 +2,16 @@ import React, {useState} from 'react';
 import styles from "./Item.module.css"
 
 const Item = ({item}) => {
-    const [hoverID, setHoverID] = useState(null);
+    const [hover, setHover] = useState(false);
 
     const aspectRatio = Math.round(item.height / item.width * 100);
     const [liked, setLiked] = useState(JSON.parse(localStorage.getItem("PhotoLikes")).includes(item.id));
 
     return (
         <div id={"Item_" + item.id} className={styles.container} onMouseOver={(event) => {
-            setHoverID(item.id);
+            setHover(true);
         }} onMouseOut={(event) => {
-            setHoverID(null);
+            setHover(false);
         }}>
             <article className={styles.article} style={{
                 paddingTop: `${aspectRatio}%`
@@ -20,7 +20,7 @@ const Item = ({item}) => {
                     <img className={styles.image} src={item.src.original + "?auto=compress&cs=tinysrgb&dpr=1&w=500"}
                          alt={item.alt}/>
                 </a>
-                {hoverID === item.id ?
+                {hover?
                     <div className={styles.buttonsContainer}>
                         <a className={styles.buttonUser} title="User profile" href={item.photographer_url}>
                             <div className={styles.buttonUserImageContainer}>

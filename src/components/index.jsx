@@ -30,7 +30,7 @@ const Index = () => {
 
                 setPhoto(photos[i]);
 
-            })
+            }).catch((error) => {console.log(error)})
     }, [])
 
     return (
