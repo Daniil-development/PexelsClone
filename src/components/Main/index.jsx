@@ -12,15 +12,11 @@ const Main = observer(() => {
     return (
         <main className={styles.container}>
             <Grid/>
-            {state.fetching ?
-                <Load/>
-                :
-                <></>
+            {state.fetching && <Load/>
+
             }
-            {state.error ?
-                <Error/>
-                :
-                <></>}
+            {state.error && <Error/>
+                }
         </main>
     );
 });

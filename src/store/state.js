@@ -54,4 +54,10 @@ export default class State {
         this._currentPage = 1;
         this._fetching = true;
     }
+
+    updateGrid (items, currentPage, totalCount) {
+        this._items = items;
+        this._currentPage = currentPage;
+        this._totalCount = totalCount;
+    }
 }

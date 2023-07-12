@@ -63,7 +63,7 @@ const Filter = observer (({filter}) => {
                                 d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/></svg>
                         </span>
             </button>
-            {menuOpen ?
+            {menuOpen &&
                 <ul id={filter.name + "_menu"} className={styles.menu}>
                     {filter.values.map((value, index) =>
                         <button key={filter.name + "_item_" + index} id={filter.name + "_item_" + index}
@@ -98,18 +98,14 @@ const Filter = observer (({filter}) => {
                                     setMenuOpen(false)
                                 }}>
                             <span className={styles.value}>{value}</span>
-                            {index === selectedValue ?
+                            {index === selectedValue &&
                                 <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 448 512"><path
                                     d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
                             </span>
-                                :
-                                <></>
                             }
                         </button>)}
                 </ul>
-                :
-                <></>
             }
         </div>
     );

@@ -12,7 +12,7 @@ const Load = () => {
                 <div></div>
                 <div></div>
             </div>
-            <button className={styles.button} onClick={()=>state.setFetching(!state.fetching)}>Continue</button>
+            <button className={styles.button} onClick={()=>state.setFetching(false)}>Continue</button>
         </div>
     );
 };

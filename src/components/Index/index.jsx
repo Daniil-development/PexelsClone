@@ -23,6 +23,8 @@ const Index = () => {
 
         getData(request)
             .then(data => {
+                if (data === null)
+                    return;
                 let photos = data.photos;
 
                 let i = Math.floor(Math.random() * photos.length);

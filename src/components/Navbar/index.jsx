@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Searchbar from "../Searchbar";
 import {INDEX_ROUTE} from "../../utils/consts";
 import {useLocation} from "react-router-dom";
@@ -8,17 +8,7 @@ const Navbar = () => {
     const location = useLocation();
     const [isFixed, setIsFixed] = useState(false);
 
-    useEffect(() => {
-        document.addEventListener('scroll', scrollHandler);
-
-        return function () {
-            document.removeEventListener('scroll', scrollHandler);
-        }
-
-
-    }, []);
-
-    const scrollHandler = () => {
+    const scrollHandler = useCallback(() => {
         if (location.pathname !== INDEX_ROUTE) {
             setIsFixed(true);
 
@@ -28,7 +18,17 @@ const Navbar = () => {
         } else if (location.pathname === INDEX_ROUTE && document.getElementById("header").getBoundingClientRect().bottom >= 0) {
             setIsFixed(false);
         }
-    };
+    }, [isFixed, location.pathname]);
+
+    useEffect(() => {
+        document.addEventListener('scroll', scrollHandler);
+
+        return function () {
+            document.removeEventListener('scroll', scrollHandler);
+        }
+
+
+    }, [scrollHandler]);
 
     return (
     <div className={`${styles.container} ${(isFixed || location.pathname !== INDEX_ROUTE) ? styles.navbarFixed : ""}`}>
@@ -42,12 +42,10 @@ const Navbar = () => {
                 <div className={styles.logoText}>Pexels</div>
             </a>
 
-        {isFixed || location.pathname !== INDEX_ROUTE ?
+        {(isFixed || location.pathname !== INDEX_ROUTE) &&
             <div className={styles.searchbarContainer}>
                 <Searchbar parent={"Navbar"}/>
             </div>
-            :
-            <></>
         }
 
         </div>

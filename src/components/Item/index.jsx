@@ -20,7 +20,7 @@ const Item = ({item}) => {
                     <img className={styles.image} src={item.src.original + "?auto=compress&cs=tinysrgb&dpr=1&w=500"}
                          alt={item.alt}/>
                 </a>
-                {hover?
+                {hover &&
                     <div className={styles.buttonsContainer}>
                         <a className={styles.buttonUser} title="User profile" href={item.photographer_url}>
                             <div className={styles.buttonUserImageContainer}>
@@ -72,8 +72,6 @@ const Item = ({item}) => {
                             }
                         </button>
                     </div>
-                    :
-                    <></>
                 }
             </article>
         </div>

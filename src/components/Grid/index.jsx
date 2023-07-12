@@ -1,11 +1,11 @@
 import React, {useCallback, useContext, useEffect} from 'react';
 import Column from "../Column";
-import {INDEX_ROUTE, PICTURES_PER_PAGE} from "../../utils/consts";
 import {useLocation} from "react-router-dom";
 import styles from "./index.module.css"
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import {getData} from "../../api/API";
+import {getUrl} from "../../api/requests";
 
 const Grid = observer(() => {
         const {state} = useContext(Context);
@@ -16,30 +16,15 @@ const Grid = observer(() => {
                 if (state.fetching) {
 
                     console.log("fetching " + state.currentPage);
-                    let url = `/curated?page=${state.currentPage}&per_page=${PICTURES_PER_PAGE}`;
-
-                    let path = location.pathname;
-
-                    let search = location.search;
-
-                    if (path !== INDEX_ROUTE) {
-                        path = path.split("/");
-                        url = `/search?query=${path[2]}&page=${state.currentPage}&per_page=${PICTURES_PER_PAGE}`;
-                        if (search !== "") {
-                            search = search.substring(1);
-                            url += "&" + search;
-                        }
-                    }
+                    let url = getUrl(state.currentPage, location.pathname, location.search);
 
                     getData(url).then(data => {
                         if (data === null) {
                             state.setError(true);
                         }
                         console.log(data)
-                        state.setItems([...state.items, ...data.photos]);
-                        state.setCurrentPage(state.currentPage + 1);
 
-                        state.setTotalCount(data.total_results);
+                        state.updateGrid([...state.items, ...data.photos], state.currentPage + 1, data.total_results);
                     })
                         .finally(() => {
                             state.setFetching(false)
@@ -54,7 +39,8 @@ const Grid = observer(() => {
                 && state.items.length < state.totalCount && !state.fetching) {
                 state.setFetching(true);
             }
-        }, []);
+        }, [state]);
+
         useEffect(() => {
             document.addEventListener('scroll', scrollHandler);
 

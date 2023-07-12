@@ -21,9 +21,7 @@ const TrendingSuggestions = () => {
         <ul className={styles.trendingSuggestions}>
             {suggestions.map(suggestion =>
                 <li key={"Suggestion " + suggestion} className={styles.suggestion}>
-                    {suggestion === suggestions[0] ?
-                        <></>
-                        :
+                    {suggestion !== suggestions[0] &&
                         <span>,&nbsp;</span>
                     }
                     <a href={SEARCH_ROUTE + "/" + suggestion + "/?"}>{suggestion}</a>
