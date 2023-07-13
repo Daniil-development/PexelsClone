@@ -21,6 +21,7 @@ const Grid = observer(() => {
                     getData(url).then(data => {
                         if (data === null) {
                             state.setError(true);
+                            return;
                         }
                         console.log(data)
 
