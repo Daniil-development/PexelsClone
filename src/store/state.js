@@ -1,4 +1,6 @@
-import {makeAutoObservable} from "mobx";
+import {flow, makeAutoObservable} from "mobx";
+import {getUrl} from "../api/requests";
+import {getData} from "../api/API";
 
 export default class State {
     constructor() {
@@ -7,7 +9,7 @@ export default class State {
         this._totalCount = 0
         this._error = false;
         this._currentPage = 1;
-        makeAutoObservable(this);
+        makeAutoObservable(this, {fetchGrid: flow});
     }
     setFetching(value) {
         this._fetching = value;
@@ -55,9 +57,27 @@ export default class State {
         this._fetching = true;
     }
 
-    updateGrid (items, currentPage, totalCount) {
+    updateData (items, currentPage, totalCount) {
         this._items = items;
         this._currentPage = currentPage;
         this._totalCount = totalCount;
     }
+
+    *fetchGrid(location) {
+            console.log("fetching " + this.currentPage);
+            let url = getUrl(this.currentPage, location.pathname, location.search);
+
+            const data = yield getData(url);
+
+            if (data === null) {
+                this.setError(true);
+                this.setFetching(false)
+                return;
+            }
+            console.log(data)
+
+            this.updateData([...this.items, ...data.photos], this.currentPage + 1, data.total_results);
+            console.log("Fetched");
+            this.setFetching(false)
+        }
 }

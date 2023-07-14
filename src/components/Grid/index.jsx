@@ -4,43 +4,26 @@ import {useLocation} from "react-router-dom";
 import styles from "./index.module.css"
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
-import {getData} from "../../api/API";
-import {getUrl} from "../../api/requests";
+import {flow} from "mobx";
 
 const Grid = observer(() => {
         const {state} = useContext(Context);
         const location = useLocation();
 
         useEffect(() => {
-                console.log("PREF " + state.currentPage + state.fetching)
-                if (state.fetching) {
-
-                    console.log("fetching " + state.currentPage);
-                    let url = getUrl(state.currentPage, location.pathname, location.search);
-
-                    getData(url).then(data => {
-                        if (data === null) {
-                            state.setError(true);
-                            return;
-                        }
-                        console.log(data)
-
-                        state.updateGrid([...state.items, ...data.photos], state.currentPage + 1, data.total_results);
-                    })
-                        .finally(() => {
-                            state.setFetching(false)
-                        });
-
-                }
-            }, [state.fetching]
+                console.log("PREF " + state.currentPage + state.fetching);
+                    flow(state.fetchGrid(location));
+            }, []
         )
 
-        const scrollHandler = useCallback((e) => {
+        const scrollHandler = (e) => {
+            console.log("ScrollHandler");
             if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < window.innerHeight * 4
                 && state.items.length < state.totalCount && !state.fetching) {
                 state.setFetching(true);
+                flow(state.fetchGrid(location));
             }
-        }, [state]);
+        };
 
         useEffect(() => {
             document.addEventListener('scroll', scrollHandler);
@@ -48,7 +31,7 @@ const Grid = observer(() => {
             return function () {
                 document.removeEventListener('scroll', scrollHandler);
             }
-        }, [scrollHandler])
+        }, [])
 
 
         return (
