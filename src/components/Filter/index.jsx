@@ -3,9 +3,10 @@ import {useHistory, useLocation} from "react-router-dom";
 import styles from "./index.module.css"
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
+import state from "../../store/state";
 
 const Filter = observer (({filter}) => {
-    const {state} = useContext(Context);
+    //const {state} = useContext(Context);
     const [menuOpen, setMenuOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(0)
 

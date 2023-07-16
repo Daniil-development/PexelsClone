@@ -5,45 +5,47 @@ import styles from "./index.module.css"
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import {flow} from "mobx";
+import state from "../../store/state";
 
 const Grid = observer(() => {
-        const {state} = useContext(Context);
         const location = useLocation();
 
         useEffect(() => {
                 console.log("PREF " + state.currentPage + state.fetching);
-                    flow(state.fetchGrid(location));
+                state.fetchGrid(location)
             }, []
         )
 
-        const scrollHandler = (e) => {
+        const scrollHandler = useCallback((e) => {
             console.log("ScrollHandler");
-            if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < window.innerHeight * 4
-                && state.items.length < state.totalCount && !state.fetching) {
+            let documentRemainingHeight = e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight);
+            if (documentRemainingHeight < window.innerHeight * 4
+                && state.items.length < state.totalCount
+                && !state.fetching) {
                 state.setFetching(true);
-                flow(state.fetchGrid(location));
+                state.fetchGrid(location)
             }
-        };
+        }, [state]);
 
         useEffect(() => {
-            document.addEventListener('scroll', scrollHandler);
+            window.addEventListener('scroll', scrollHandler);
 
             return function () {
-                document.removeEventListener('scroll', scrollHandler);
+                window.removeEventListener('scroll', scrollHandler);
             }
         }, [])
 
 
         return (
             <div className={styles.container}>
-                <Column items={state.items.filter(function (item, index) {
+                <Column items={state.items.filter( (_, index) => {
 
                     return (index + 3) % 3 === 0
                 })} column_index={0}/>
-                <Column items={state.items.filter(function (item, index) {
+                <Column items={state.items.filter( (_, index) => {
                     return (index + 2) % 3 === 0
                 })} column_index={1}/>
-                <Column items={state.items.filter(function (item, index) {
+                <Column items={state.items.filter( (_, index) => {
                     return (index + 1) % 3 === 0
                 })} column_index={2}/>
             </div>

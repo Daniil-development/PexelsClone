@@ -4,9 +4,10 @@ import {useLocation} from "react-router-dom";
 import styles from "./index.module.css";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
+import state from "../../store/state";
 
 const SearchHeader = observer(() => {
-    const {state} = useContext(Context);
+    //const {state} = useContext(Context);
 
     const path = useLocation().pathname
     const search = useLocation().search;

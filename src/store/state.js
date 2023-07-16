@@ -1,8 +1,8 @@
-import {flow, makeAutoObservable} from "mobx";
+import {flow, flowResult, makeAutoObservable} from "mobx";
 import {getUrl} from "../api/requests";
 import {getData} from "../api/API";
 
-export default class State {
+class State {
     constructor() {
         this._fetching = true;
         this._items = [];
@@ -80,4 +80,10 @@ export default class State {
             console.log("Fetched");
             this.setFetching(false)
         }
+
+        f (location) {
+        flowResult(this.fetchGrid(location))
+        }
 }
+
+export default new State();

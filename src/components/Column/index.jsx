@@ -1,12 +1,12 @@
 import React from 'react';
-import Item from "../Item";
+import ColumnItem from "../ColumnItem";
 import styles from "./index.module.css"
 
 const Column = ({items, column_index}) => {
     return (
         <div id={"Column_" + column_index} className={styles.column}>
             {items.map(item =>
-                <Item key={item.id} item={item}/>
+                <ColumnItem key={item.id} item={item}/>
             )}
 
 

@@ -5,9 +5,10 @@ import styles from "./index.module.css"
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import Error from "../Error";
+import state from "../../store/state";
 
 const Main = observer(() => {
-    const {state} = useContext(Context);
+    //const {state} = useContext(Context);
 
     return (
         <main className={styles.container}>

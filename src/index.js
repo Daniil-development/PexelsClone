@@ -9,9 +9,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 if (localStorage.getItem("PhotoLikes") === null || localStorage.getItem("PhotoLikes") === undefined) localStorage.setItem("PhotoLikes", JSON.stringify([]))
 
 root.render(
-    <Context.Provider value={{
-        state: new State()
-    }}>
-        <App/>
-    </Context.Provider>);
+    <App/>
+    );
 

@@ -94,11 +94,3 @@
     letter-spacing: -.015em;
     color: #ffffff;
 }
-
-.buttonUserImageContainer {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: red;
-    margin-right: 5px;
-}

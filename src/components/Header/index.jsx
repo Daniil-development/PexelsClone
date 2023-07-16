@@ -23,7 +23,7 @@ const Header = ({photo}) => {
                 <img className={styles.image} src={photo.src.original + "?auto=compress&cs=tinysrgb&fit=crop&h=500&w=1400&dpr=1"} alt={""}/>
             </div>
 
-            <a className={styles.authorContainer} href={photo.photographer_url}>
+            <a className={styles.authorContainer} href={photo.photographer_url} target={"_blank"} rel={"noreferrer"}>
                 <span>Photo by&nbsp;</span>
                 <span>{photo.photographer}</span>
             </a>
