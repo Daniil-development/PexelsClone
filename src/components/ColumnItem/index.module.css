@@ -1,96 +1,98 @@
 .container {
-    margin-bottom: 30px;
-
+  margin-bottom: 30px;
 }
 
 .container:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .article {
-    background: rgb(113, 110, 101);
-    position: relative;
-    border-radius: 0;
+  background: rgb(113, 110, 101);
+  position: relative;
+  border-radius: 0;
 }
 
 .image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .link {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    text-decoration: none;
-    background-color: transparent;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  text-decoration: none;
+  background-color: transparent;
 }
 
 .buttonsContainer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.15) 2%, transparent, rgba(0, 0, 0, 0.15) 98%);
-    pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.15) 2%,
+    transparent,
+    rgba(0, 0, 0, 0.15) 98%
+  );
+  pointer-events: none;
 }
 
 .button {
-    width: 40px;
-    height: 40px;
-    pointer-events: all;
-    border: 0;
-    border-radius: 10px;
-    position: absolute;
-    color: #7f7f7f;
-    fill: #7f7f7f;
+  width: 40px;
+  height: 40px;
+  pointer-events: all;
+  border: 0;
+  border-radius: 10px;
+  position: absolute;
+  color: #7f7f7f;
+  fill: #7f7f7f;
 }
 
 .button:hover {
-    background-color: #d9d9d9;
+  background-color: #d9d9d9;
 }
 
 .buttonDownload {
-    composes: button;
-    bottom: 15px;
-    right: 15px;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  composes: button;
+  bottom: 15px;
+  right: 15px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
 .buttonCollection {
-    composes: button;
-    top: 15px;
-    right: calc(10px + 40px + 15px);
+  composes: button;
+  top: 15px;
+  right: calc(10px + 40px + 15px);
 }
 
 .buttonLike {
-    composes: button;
-    top: 15px;
-    right: 15px;
+  composes: button;
+  top: 15px;
+  right: 15px;
 }
 
 .buttonUser {
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    height: 40px;
-    width: calc(100% - 30px - 10px - 40px);
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    pointer-events: all;
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  height: 40px;
+  width: calc(100% - 30px - 10px - 40px);
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  pointer-events: all;
 
-    line-height: 1;
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: -.015em;
-    color: #ffffff;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.015em;
+  color: #ffffff;
 }

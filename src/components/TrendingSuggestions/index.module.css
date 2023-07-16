@@ -1,18 +1,18 @@
 .trendingSuggestions {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .suggestion {
-    display: inline-block;
+  display: inline-block;
 }
 
 .suggestion a {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .suggestion a:hover {
-    color: hsla(0, 0%, 100%, .7);;
+  color: hsla(0, 0%, 100%, 0.7);
 }
